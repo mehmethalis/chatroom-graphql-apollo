@@ -1,5 +1,10 @@
-const Query=require('./queries/Query');
+// query resolvers
+const Query = require('./queries/Query');
 
-module.exports= {
-    Query
+//mutation resolvers
+const Mutation = require('./mutations/index');
+
+module.exports = {
+    Query,
+    Mutation
 };

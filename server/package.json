@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "nodemon --ext js,graphql app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,9 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "apollo-server-express": "^2.19.2",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "graphql": "^15.5.0",
     "graphql-import": "^1.0.2",
+    "mongoose": "^5.11.15",
     "nodemon": "^2.0.7"
   }
 }

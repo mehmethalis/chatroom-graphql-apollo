@@ -6,3 +6,5 @@ type User{
     name:String!
     surname:String!
 }
+
+

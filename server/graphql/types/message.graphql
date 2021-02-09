@@ -1,0 +1,21 @@
+type Message{
+    id:ID!
+    text:String!
+    createdAt:String!
+    user:User!
+}
+
+type Query{
+    message(id:ID!): Message!
+    messages:[Message!]!
+}
+
+type Mutation{
+    createMessage(data:CreateMessageInput):Message
+}
+
+input CreateMessageInput{
+    text:String!
+    userId:ID!
+}
+

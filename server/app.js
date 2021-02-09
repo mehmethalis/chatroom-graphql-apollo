@@ -8,12 +8,14 @@ const resolvers = require('./graphql/resolvers/index');
 
 //models
 const User = require('./Models/User');
+const Message=require('./Models/Message');
 
 const server = new ApolloServer({
     typeDefs: importSchema('./graphql/schema.graphql'),
     resolvers,
     context: {
-        User
+        User,
+        Message
     }
 });
 

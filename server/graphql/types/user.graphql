@@ -1,6 +1,8 @@
 type User{
+    id:ID!
     userName:String!
     createdAt:String!
+    messages:[Message!]!
 }
 
 input CreateUserInput{
@@ -13,7 +15,7 @@ type Query{
     users:[User!]!
 }
 
-type Mutation {
+type Mutation{
     createUser(data:CreateUserInput!):User
 }
 

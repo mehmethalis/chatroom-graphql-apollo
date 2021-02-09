@@ -9,14 +9,18 @@ input CreateUserInput{
     userName:String!
     password:String!
 }
-
+input SignInUserInput{
+    userName:String!
+    password:String!
+}
 type Query{
     user(id:ID!):User!
     users:[User!]!
 }
 
 type Mutation{
-    createUser(data:CreateUserInput!):User
+    createUser(data:CreateUserInput!):Token
+    signIn(data:SignInUserInput!):Token
 }
 
 

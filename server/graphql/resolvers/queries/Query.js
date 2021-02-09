@@ -1,9 +1,9 @@
 const Query = {
-    user: (parent, args) => {
-        return {
-            userName: 'MEHMET',
-            createdAt: '02/08/2021'
-        }
+    user: async (parent, args, {User}) => {
+        return (await User.findById(args.id));
+    },
+    users: async (parent, args, {User}) => {
+        return (await User.find({}).sort({'createdAt': 'desc'}))
     }
 }
-module.exports=Query;
+module.exports = Query;

@@ -21,8 +21,9 @@ const Join = () => {
     const submit = (e: any) => {
         e.preventDefault();
         createUser({variables: {userName: form.userName, password: form.password}})
-            .then((res) => {
-                console.log(res)
+            .then(({data}) => {
+                console.log(data)
+                localStorage.setItem('token',data.createUser.token)
                 setForm({
                     userName: '',
                     password: '',

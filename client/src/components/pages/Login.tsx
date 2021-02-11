@@ -16,7 +16,8 @@ const Login = () => {
 
     const submit = (e: any) => {
         e.preventDefault();
-        signIn({variables: form}).then(res => {
+        signIn({variables: form}).then(({data}) => {
+            localStorage.setItem('token',data.signIn.token)
             setForm({userName: "", password: ""})
         }).catch(err => console.log(err))
     }

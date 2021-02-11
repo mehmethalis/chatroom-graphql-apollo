@@ -1,11 +1,16 @@
 import React from 'react';
+import Header from "./Header";
+import Home from "./pages/Home";
 
 function App() {
-  return (
-    <div className="App">
-      <h1>Hello World!</h1>
-    </div>
-  );
+    return (
+        <div id="app">
+            <div className="container">
+                <Header/>
+                <Home/>
+            </div>
+        </div>
+    );
 }
 
 export default App;

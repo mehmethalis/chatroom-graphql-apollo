@@ -8,3 +8,10 @@ export const CREATE_USER = gql`
         }
     }
 `
+export const SIGN_IN_USER = gql`
+    mutation($userName: String!, $password: String!) {
+        signIn(data: { userName: $userName, password: $password }) {
+            token
+        }
+    }
+`

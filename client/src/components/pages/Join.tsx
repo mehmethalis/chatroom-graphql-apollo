@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import {useMutation} from '@apollo/client';
+import {withRouter} from "react-router-dom";
 import {CREATE_USER} from "../../queries";
 import ClipLoader from "react-spinners/ClipLoader"
 
 
-const Join = () => {
+const Join = (props:any) => {
     const [form, setForm] = useState({
         userName: '',
         password: '',
@@ -21,15 +22,16 @@ const Join = () => {
     const submit = (e: any) => {
         e.preventDefault();
         createUser({variables: {userName: form.userName, password: form.password}})
-            .then(({data}) => {
-                console.log(data)
+            .then(async ({data}) => {
                 localStorage.setItem('token',data.createUser.token)
+                props.refetch()
                 setForm({
                     userName: '',
                     password: '',
                     passwordConfirm: ''
 
                 })
+                props.history.push('/')
             })
             .catch(error => console.log(error))
     }
@@ -58,4 +60,4 @@ const Join = () => {
         </div>
     )
 }
-export default Join;
+export default withRouter(Join);

@@ -2,7 +2,7 @@ const express = require('express');
 require('dotenv').config();
 const cors = require('cors')
 const mongoose = require('mongoose');
-const jwt =require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const {ApolloServer} = require('apollo-server-express');
 const {importSchema} = require('graphql-import');
 
@@ -15,10 +15,11 @@ const Message = require('./Models/Message');
 const server = new ApolloServer({
     typeDefs: importSchema('./graphql/schema.graphql'),
     resolvers,
-    context: {
+    context: ({req}) => ({
         User,
-        Message
-    }
+        Message,
+        activeUser:req.activeUser
+    })
 });
 
 //db
@@ -42,9 +43,9 @@ app.use(async (req, res, next) => {
     const token = req.headers['authorization']
     if (token && token !== 'null') {
         try {
-            const activeUser=await jwt.verify(token,process.env.JWT_SECRET)
-            console.log(activeUser)
-        }catch (e){
+            const activeUser = await jwt.verify(token, process.env.JWT_SECRET)
+            req.activeUser = activeUser;
+        } catch (e) {
             console.log(e)
         }
     }

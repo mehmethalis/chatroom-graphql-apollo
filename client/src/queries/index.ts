@@ -15,3 +15,16 @@ export const SIGN_IN_USER = gql`
         }
     }
 `
+
+export const GET_ACTIVE_USER = gql`
+    query {
+        activeUser{
+            userName
+            createdAt
+            messages{
+                text
+                createdAt
+            }
+        }
+    }
+`

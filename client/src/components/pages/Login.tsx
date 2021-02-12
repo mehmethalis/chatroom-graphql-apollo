@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import {useMutation} from "@apollo/client";
+import {withRouter} from "react-router-dom";
 import {SIGN_IN_USER} from "../../queries";
 import ClipLoader from "react-spinners/ClipLoader";
 
-const Login = () => {
+const Login = (props:any) => {
     const [form, setForm] = useState({
         userName: '',
         password: ''
@@ -16,9 +17,11 @@ const Login = () => {
 
     const submit = (e: any) => {
         e.preventDefault();
-        signIn({variables: form}).then(({data}) => {
-            localStorage.setItem('token',data.signIn.token)
+        signIn({variables: form}).then( async ({data}) => {
+            localStorage.setItem('token', data.signIn.token)
+            await props.refetch()
             setForm({userName: "", password: ""})
+            props.history.push('/')
         }).catch(err => console.log(err))
     }
     return (
@@ -42,4 +45,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default withRouter(Login);

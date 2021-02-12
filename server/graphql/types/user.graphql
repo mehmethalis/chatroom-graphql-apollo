@@ -1,7 +1,8 @@
+scalar Date
 type User{
     id:ID!
     userName:String!
-    createdAt:String!
+    createdAt:Date!
     messages:[Message!]!
 }
 
@@ -16,6 +17,8 @@ input SignInUserInput{
 type Query{
     user(id:ID!):User!
     users:[User!]!
+
+    activeUser:User
 }
 
 type Mutation{

@@ -1,7 +1,8 @@
+scalar Date
 type Message{
     id:ID!
     text:String!
-    createdAt:String!
+    createdAt:Date!
     user:User!
 }
 

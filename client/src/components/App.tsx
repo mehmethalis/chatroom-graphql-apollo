@@ -6,31 +6,36 @@ import {
     Redirect
 } from "react-router-dom";
 
+import SessionWrapperHOC from "./SessionWrapperHOC";
+
 import Header from "./Header";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Join from "./pages/Join";
+import Profile from "./pages/Profile";
 
-const Root = () => (
+const Root = ({refetch,session}:any) => (
     <Router>
         <>
-            <Header/>
+            <Header session={session}/>
             <Switch>
                 <Route path={"/"} exact component={Home}/>
-                <Route path={"/login"} component={Login}/>
-                <Route path={"/join"} component={Join}/>
+                <Route path={"/login"} render={()=><Login refetch={refetch}/>}/>
+                <Route path={"/join"} render={()=><Join  refetch={refetch}/>}/>
+                <Route path={"/profile"} render={()=><Profile  session={session}/>}/>
                 <Redirect to={"/"}/>
             </Switch>
         </>
 
     </Router>)
 
+const RootWithSessionWrapper =SessionWrapperHOC(Root);
 
 const App = () => {
     return (
         <div id="app">
             <div className="container">
-                <Root/>
+                <RootWithSessionWrapper/>
             </div>
         </div>
     );

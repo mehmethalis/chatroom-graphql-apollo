@@ -1,7 +1,8 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
+import Logout from "./Logout";
 
-const Header = () => {
+const Header = ({session}: any) => {
     return (
         <div className="header">
             <div className="logo">
@@ -10,11 +11,24 @@ const Header = () => {
 
             <div className="header_menu">
                 <NavLink to={"/"} exact>ChatRoom</NavLink>
-                <NavLink to={"/login"}>Login</NavLink>
-                <NavLink to={"/join"}>Join</NavLink>
+                {
+                    session.activeUser ? <LinksWithLogin session={session}/> : <LinksWithUnLogin />
+                }
             </div>
         </div>
     )
 }
 
+const LinksWithLogin = ({session}:any) => (
+    <>
+        <NavLink to={"/profile"}>@{session.activeUser.userName}</NavLink>
+        <Logout/>
+    </>
+)
+const LinksWithUnLogin = () => (
+    <>
+        <NavLink to={"/login"}>Login</NavLink>
+        <NavLink to={"/join"}>Join</NavLink>
+    </>
+)
 export default Header;

@@ -19,7 +19,7 @@ const Root = ({refetch,session}:any) => (
         <>
             <Header session={session}/>
             <Switch>
-                <Route path={"/"} exact component={Home}/>
+                <Route path={"/"} exact render={()=><Home  session={session}/>} />
                 <Route path={"/login"} render={()=><Login refetch={refetch}/>}/>
                 <Route path={"/join"} render={()=><Join  refetch={refetch}/>}/>
                 <Route path={"/profile"} render={()=><Profile  session={session}/>}/>

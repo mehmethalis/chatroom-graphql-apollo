@@ -1,12 +1,35 @@
-import React from "react";
-import {useQuery} from "@apollo/client";
-import {GET_MESSAGES} from "../../queries";
+import React, {useState, useEffect} from "react";
+import {useMutation, useQuery} from "@apollo/client";
+import {ADD_MESSAGE, CREATE_USER, GET_MESSAGES} from "../../queries";
 import ClipLoader from "react-spinners/ClipLoader";
 import TimeAgo from 'react-timeago';
 
-const Home = () => {
+const Home = ({session}: any) => {
     const {loading, error, data} = useQuery(GET_MESSAGES);
+    const [addMessage, {loading: mutationLoading, error: mutationError}] = useMutation(ADD_MESSAGE,
+        {refetchQueries: [{query: GET_MESSAGES}]});
 
+    const [form, setForm] = useState({
+        text: '',
+        userId: ''
+    });
+    useEffect(() => {
+        if (session && session.activeUser) {
+            setForm({...form, userId: session.activeUser.id})
+        }
+
+    }, []);
+
+
+    const submit = (e: any) => {
+        e.preventDefault()
+        if (form.text) {
+            addMessage({variables: form},).then(res => {
+                setForm({...form, text: ''})
+            }).catch(err => console.log(err))
+        }
+
+    }
     return (
         <>
             <div className="description">
@@ -14,8 +37,15 @@ const Home = () => {
             </div>
 
             <div>
-                <form>
-                    <input className="add-snap__input" type="text" placeholder="type message"/>
+                <form onSubmit={submit}>
+                    <input className="add-snap__input"
+                           type="text"
+                           disabled={!(session && session.activeUser) || loading}
+                           placeholder={session && session.activeUser ? 'Type message' : 'Please login to type'}
+                           onChange={(e) => setForm({...form, text: e.target.value})}
+                           value={form.text}
+                    />
+                    {error && <p>{error.message}</p>}
                 </form>
             </div>
             <div>

@@ -8,6 +8,18 @@ export const CREATE_USER = gql`
         }
     }
 `
+
+export const ADD_MESSAGE = gql`
+    mutation($text:String! $userId:ID!) {
+        createMessage(
+            data: { text: $text, userId: $userId }
+        ) {
+            text
+        }
+    }
+
+`
+
 export const SIGN_IN_USER = gql`
     mutation($userName: String!, $password: String!) {
         signIn(data: { userName: $userName, password: $password }) {
@@ -19,6 +31,7 @@ export const SIGN_IN_USER = gql`
 export const GET_ACTIVE_USER = gql`
     query {
         activeUser{
+            id
             userName
             createdAt
             messages{
@@ -41,5 +54,4 @@ export const GET_MESSAGES = gql`
             }
         }
     }
-
 `

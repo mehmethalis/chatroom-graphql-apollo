@@ -28,3 +28,18 @@ export const GET_ACTIVE_USER = gql`
         }
     }
 `
+//Home
+export const GET_MESSAGES = gql`
+    query {
+        messages {
+            text
+            id
+            createdAt
+            user {
+                id
+                userName
+            }
+        }
+    }
+
+`

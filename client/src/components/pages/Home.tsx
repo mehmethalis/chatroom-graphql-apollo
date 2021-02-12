@@ -1,6 +1,12 @@
 import React from "react";
+import {useQuery} from "@apollo/client";
+import {GET_MESSAGES} from "../../queries";
+import ClipLoader from "react-spinners/ClipLoader";
+import TimeAgo from 'react-timeago';
 
 const Home = () => {
+    const {loading, error, data} = useQuery(GET_MESSAGES);
+
     return (
         <>
             <div className="description">
@@ -14,27 +20,24 @@ const Home = () => {
             </div>
             <div>
                 <ul className="snaps">
-                    <li>
-                        <div className="title">Lorem ipsum dolor sit amet</div>
-                        <div className="date">
-                            <span>now</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="title">Curabitur gravida arcu ac tortor dignissim.</div>
-                        <div className="date">
-                            <span>5 minutes ago</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="title">Tristique risus nec feugiat in fermentum.</div>
-                        <div className="date">
-                            <span>7 minutes ago</span>
-                        </div>
-                    </li>
+                    {
+                        data && data.messages.map((message: any) => (<li key={message.id}>
+                            <div className="title">
+                                <span className={'username'}>@{message.user.userName} </span>
+                                {message.text}
+                            </div>
+                            <div className="date">
+                                <span><TimeAgo date={message.createdAt}/></span>
+                            </div>
+                        </li>))
+                    }
                 </ul>
+                <div className="counter">{data && data.messages.length} snap(s)</div>
+                {loading && <ClipLoader/>}
+                {error && <p> {error.message} </p>}
             </div>
-            <div className="counter">3 snap(s)</div>
+
+
         </>
     )
 }

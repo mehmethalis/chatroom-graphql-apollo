@@ -55,3 +55,25 @@ export const GET_MESSAGES = gql`
         }
     }
 `
+
+//Subscriptions
+export const USER_CREATED = gql`
+    subscription {
+        user{
+            id
+            userName
+        }
+    }
+`
+export const MESSAGE_CREATED = gql`
+    subscription ($userId:ID){
+        messageSent(userId: $userId){
+            id
+            text
+            createdAt
+            user{
+                userName
+            }
+        }
+    }
+`

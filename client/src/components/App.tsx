@@ -9,7 +9,7 @@ import {
 import SessionWrapperHOC from "./SessionWrapperHOC";
 
 import Header from "./Header";
-import Home from "./pages/Home";
+import Home from "./pages/home/Home";
 import Login from "./pages/Login";
 import Join from "./pages/Join";
 import Profile from "./pages/Profile";

@@ -5,6 +5,9 @@ type Message{
     createdAt:Date!
     user:User!
 }
+type Subscription{
+    messageSent(userId:ID):Message!
+}
 
 type Query{
     message(id:ID!): Message!

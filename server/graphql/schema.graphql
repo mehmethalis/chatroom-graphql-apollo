@@ -1,7 +1,10 @@
 # import Query from './types/user.graphql'
 # import Mutation from './types/user.graphql'
+# import Subscription from './types/user.graphql'
+
 
 # import Query from './types/message.graphql'
 # import Mutation from './types/message.graphql'
+# import Subscription from './types/message.graphql'
 
 # import Query from './types/token.graphql'

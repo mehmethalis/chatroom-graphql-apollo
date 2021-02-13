@@ -1,9 +1,10 @@
+const http = require('http');
 const express = require('express');
 require('dotenv').config();
 const cors = require('cors')
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const {ApolloServer} = require('apollo-server-express');
+const {ApolloServer,PubSub} = require('apollo-server-express');
 const {importSchema} = require('graphql-import');
 
 const resolvers = require('./graphql/resolvers/index');
@@ -12,13 +13,16 @@ const resolvers = require('./graphql/resolvers/index');
 const User = require('./Models/User');
 const Message = require('./Models/Message');
 
+const pubSub= new PubSub();
+
 const server = new ApolloServer({
     typeDefs: importSchema('./graphql/schema.graphql'),
     resolvers,
     context: ({req}) => ({
         User,
         Message,
-        activeUser:req.activeUser
+        pubSub,
+        activeUser:req ? req.activeUser :null
     })
 });
 
@@ -55,6 +59,9 @@ app.use(async (req, res, next) => {
 
 server.applyMiddleware({app});
 
-app.listen({port: process.env.PORT}, () => {
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
+
+httpServer.listen({port: process.env.PORT}, () => {
     console.log(`✔ Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`)
 });

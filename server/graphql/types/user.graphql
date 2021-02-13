@@ -6,6 +6,9 @@ type User{
     messages:[Message!]!
 }
 
+type Subscription{
+    user:User!
+}
 input CreateUserInput{
     userName:String!
     password:String!

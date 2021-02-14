@@ -14,22 +14,21 @@ import Login from "./pages/Login";
 import Join from "./pages/Join";
 import Profile from "./pages/Profile";
 
-const Root = ({refetch,session}:any) => (
+const Root = ({refetch, session}: any) => (
     <Router>
         <>
             <Header session={session}/>
             <Switch>
-                <Route path={"/"} exact render={()=><Home  session={session}/>} />
-                <Route path={"/login"} render={()=><Login refetch={refetch}/>}/>
-                <Route path={"/join"} render={()=><Join  refetch={refetch}/>}/>
-                <Route path={"/profile"} render={()=><Profile  session={session}/>}/>
+                <Route path={"/"} exact render={() => <Home session={session}/>}/>
+                <Route path={"/login"} render={() => <Login refetch={refetch}/>}/>
+                <Route path={"/join"} render={() => <Join refetch={refetch}/>}/>
+                <Route path={"/profile"} render={() => <Profile session={session}/>}/>
                 <Redirect to={"/"}/>
             </Switch>
         </>
-
     </Router>)
 
-const RootWithSessionWrapper =SessionWrapperHOC(Root);
+const RootWithSessionWrapper = SessionWrapperHOC(Root);
 
 const App = () => {
     return (

@@ -9,7 +9,7 @@ const Home = ({session}: any) => {
             <div className="description">
                 <p className="sub_header__desc">simple chat app with <span>react</span>.</p>
             </div>
-            <NewMessageForm session={session} />
+            <NewMessageForm session={session}/>
             <JoinedUs/>
             <MessageList/>
         </>

@@ -12,14 +12,14 @@ const Header = ({session}: any) => {
             <div className="header_menu">
                 <NavLink to={"/"} exact>ChatRoom</NavLink>
                 {
-                    session.activeUser ? <LinksWithLogin session={session}/> : <LinksWithUnLogin />
+                    session.activeUser ? <LinksWithLogin session={session}/> : <LinksWithUnLogin/>
                 }
             </div>
         </div>
     )
 }
 
-const LinksWithLogin = ({session}:any) => (
+const LinksWithLogin = ({session}: any) => (
     <>
         <NavLink to={"/profile"}>@{session.activeUser.userName}</NavLink>
         <Logout/>

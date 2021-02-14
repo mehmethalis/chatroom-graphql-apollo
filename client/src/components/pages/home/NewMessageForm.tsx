@@ -3,8 +3,8 @@ import {useMutation} from "@apollo/client";
 import {ADD_MESSAGE, GET_MESSAGES} from "../../../queries";
 
 const NewMessageForm = ({session}: any) => {
-    const [addMessage, {loading: mutationLoading, error: mutationError}] = useMutation(ADD_MESSAGE,
-        {refetchQueries: [{query: GET_MESSAGES}]});
+    const [addMessage, {loading: mutationLoading, error: mutationError}] =
+        useMutation(ADD_MESSAGE, {refetchQueries: [{query: GET_MESSAGES}]});
 
     const [form, setForm] = useState({
         text: '',

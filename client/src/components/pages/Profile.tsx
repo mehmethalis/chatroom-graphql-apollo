@@ -13,4 +13,4 @@ const Profile = ({session: {activeUser}}: any) => {
         </div>
     )
 }
-export default AuthHOC((session:any) => session && session.activeUser)(Profile);
+export default AuthHOC((session: any) => session && session.activeUser)(Profile);

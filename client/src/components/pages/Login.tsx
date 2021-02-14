@@ -4,12 +4,14 @@ import {withRouter} from "react-router-dom";
 import {SIGN_IN_USER} from "../../queries";
 import ClipLoader from "react-spinners/ClipLoader";
 
-const Login = (props:any) => {
+const Login = (props: any) => {
+    const [signIn, {loading: mutationLoading, error: mutationError}] = useMutation(SIGN_IN_USER);
+
     const [form, setForm] = useState({
         userName: '',
         password: ''
     });
-    const [signIn, {loading: mutationLoading, error: mutationError}] = useMutation(SIGN_IN_USER);
+
     const formValidate = () => {
         const {userName, password} = form;
         return !userName || !password
@@ -17,7 +19,7 @@ const Login = (props:any) => {
 
     const submit = (e: any) => {
         e.preventDefault();
-        signIn({variables: form}).then( async ({data}) => {
+        signIn({variables: form}).then(async ({data}) => {
             localStorage.setItem('token', data.signIn.token)
             await props.refetch()
             setForm({userName: "", password: ""})

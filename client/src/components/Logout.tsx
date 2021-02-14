@@ -7,6 +7,7 @@ const onclick = (history: any, client: any) => {
     history.push('/')
     client.resetStore()
 }
+
 const Logout = ({history}: any) => {
     return (
         <ApolloConsumer>

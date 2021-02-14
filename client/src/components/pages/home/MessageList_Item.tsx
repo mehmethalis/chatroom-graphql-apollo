@@ -1,8 +1,8 @@
 import React from "react";
 import TimeAgo from "react-timeago";
 
-const MessageList_Item=({message}:any)=>{
-    return(
+const MessageList_Item = ({message}: any) => {
+    return (
         <li key={message.id}>
             <div className="title">
                 <span className={'username'}>@{message.user.userName} </span>

@@ -5,25 +5,26 @@ import {CREATE_USER} from "../../queries";
 import ClipLoader from "react-spinners/ClipLoader"
 
 
-const Join = (props:any) => {
+const Join = (props: any) => {
+    const [createUser, {loading: mutationLoading, error: mutationError}] = useMutation(CREATE_USER);
+
     const [form, setForm] = useState({
         userName: '',
         password: '',
         passwordConfirm: ''
 
     });
-    const [createUser, {loading: mutationLoading, error: mutationError}] = useMutation(CREATE_USER);
 
     const formValidate = () => {
         const {userName, password, passwordConfirm} = form;
-        return !userName || !password || !passwordConfirm || password!==passwordConfirm
+        return !userName || !password || !passwordConfirm || password !== passwordConfirm
     }
 
     const submit = (e: any) => {
         e.preventDefault();
         createUser({variables: {userName: form.userName, password: form.password}})
             .then(async ({data}) => {
-                localStorage.setItem('token',data.createUser.token)
+                localStorage.setItem('token', data.createUser.token)
                 props.refetch()
                 setForm({
                     userName: '',
@@ -49,7 +50,8 @@ const Join = (props:any) => {
                 </label>
                 <label>
                     <input type="password" name={'passwordConfirm'} placeholder="confirm password"
-                           onChange={(e) => setForm({...form, passwordConfirm: e.target.value})} value={form.passwordConfirm}/>
+                           onChange={(e) => setForm({...form, passwordConfirm: e.target.value})}
+                           value={form.passwordConfirm}/>
                 </label>
                 <label>
                     <button disabled={mutationLoading || formValidate()}>Join</button>

@@ -4,7 +4,7 @@ require('dotenv').config();
 const cors = require('cors')
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const {ApolloServer,PubSub} = require('apollo-server-express');
+const {ApolloServer, PubSub} = require('apollo-server-express');
 const {importSchema} = require('graphql-import');
 
 const resolvers = require('./graphql/resolvers/index');
@@ -13,7 +13,7 @@ const resolvers = require('./graphql/resolvers/index');
 const User = require('./Models/User');
 const Message = require('./Models/Message');
 
-const pubSub= new PubSub();
+const pubSub = new PubSub();
 
 const server = new ApolloServer({
     typeDefs: importSchema('./graphql/schema.graphql'),
@@ -22,8 +22,9 @@ const server = new ApolloServer({
         User,
         Message,
         pubSub,
-        activeUser:req ? req.activeUser :null
-    })
+        activeUser: req ? req.activeUser : null
+    }),
+    introspection: true
 });
 
 //db

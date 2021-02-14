@@ -4,7 +4,7 @@ import {useSubscription} from "@apollo/client";
 
 const JoinedUs = () => {
     const {data, loading}: any = useSubscription(USER_CREATED)
-    console.log(data)
+
     return (
         <>
             {!loading && <h4>@{data.user.userName} is joined to us.</h4>}
